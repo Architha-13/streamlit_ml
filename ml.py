@@ -57,6 +57,8 @@ if uploaded_file is not None:
     udf['text'] = udf['text'].apply(preprocess_text)
     X_uploaded_text = vectorizer.transform(udf["text"])
     predictions= model.predict(X_uploaded_text)
+    udf['sentiment'] = predictions
+    print(udf.head())
     counts=udf.groupby('sentiment')['text'].count()
     counts=pd.DataFrame(counts).reset_index()
     st.write(counts)
